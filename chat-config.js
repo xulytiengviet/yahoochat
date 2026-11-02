@@ -1,3 +1,2 @@
-// Set to the HTTPS Socket.IO service URL after deploying the Node backend.
-// Empty on GitHub Pages means not configured; on localhost use the same origin.
-window.YAHOO_CHAT_SERVER = '';
+// Public Socket.IO backend hosted on Render (My Workspace, Singapore).
+window.YAHOO_CHAT_SERVER = 'https://yahoochat-rooms.onrender.com';
