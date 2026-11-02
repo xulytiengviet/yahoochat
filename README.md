@@ -22,3 +22,18 @@ Workflow `.github/workflows/pages.yml` triển khai nhánh `main` lên GitHub Pa
 Mã nguồn HTML/CSS/JS mới: MIT, © 2026 Long Ngo (xem LICENSE).
 Các tệp hình nền, biểu tượng, avatar, mặt cười và buzz trong `assets/` được trích từ gói `yahoo-messenger-skin-0.4.3.zip` do người dùng cung cấp. Không khẳng định các tài nguyên này thuộc giấy phép MIT. Nhãn hiệu Yahoo!, Windows, Winamp và các tài nguyên bên thứ ba thuộc chủ sở hữu tương ứng. Đây là bản phục dựng độc lập, không phải dịch vụ chính thức.
 `assets/memory.wav` là giai điệu tổng hợp được tạo cho dự án, theo MIT.
+
+## Hybrid Buddy List (2026-11-02)
+
+- Mặc định **Gom chung**; nút **Tách riêng** mở ba danh bạ Yahoo!, Zalo và Facebook. Màn hình nhỏ xếp danh bạ dọc và cuộn. Lựa chọn được lưu cục bộ.
+- Huy hiệu Y!/Z/f chọn chính xác tài khoản trò chuyện. Tìm kiếm theo tên, ID hoặc nền tảng.
+- **Ghép liên hệ**: tự chọn các tài khoản cùng một người, tối đa một tài khoản mỗi nền tảng; có nút tách hoàn tác. Không suy luận danh tính từ tên trùng nhau. Lịch sử và bản nháp vẫn riêng theo ID tài khoản; bản nháp chỉ tồn tại trong phiên trang.
+- Dữ liệu Yahoo cũ giữ nguyên ID và lịch sử. Liên hệ Zalo/Facebook mẫu được thêm một lần. Trạng thái Available/Away/Invisible của từng nền tảng là trạng thái mô phỏng.
+- Chuyển `:)`, `:(`, `;)`, `:D` thành emoticon; ding tổng hợp khi bạn mô phỏng trả lời, dùng chung công tắc âm thanh. BUZZ có giới hạn tần suất và chỉ rung/phát âm thanh cục bộ.
+- Kiểm thử mô hình danh tính: `node --test tests/hybrid.test.cjs`; kiểm tra cú pháp: `node --check app.js`.
+
+### Ranh giới tích hợp thật
+
+Bản này là **web demo**, chưa phải Chrome Extension và không đăng nhập hoặc đồng bộ Zalo/Facebook. Không có content script, đọc cookie, trích phiên đăng nhập hay gửi tin nhắn đến người thật. Danh bạ, ghép danh tính và lịch sử lưu trong localStorage trên thiết bị; các tệp tĩnh được tải từ nơi triển khai trang.
+
+Nếu phát triển extension MV3, nên tách adapter từng nền tảng → service worker → kho trạng thái → Buddy List. Worker cần kiểm tra nguồn/tab và schema sự kiện, dùng khóa gồm nền tảng + tài khoản đăng nhập + ID liên hệ; lưu snapshot trong chrome.storage.local để khôi phục sau khi worker ngủ. Content script chỉ quan sát vùng cần thiết, debounce thay đổi và gửi phần dữ liệu thay đổi; chỉ yêu cầu quyền host cần thiết khi người dùng bật kết nối. Online/offline không xác định phải thể hiện là “chưa rõ”, không suy ra từ tên. Không dùng thư viện trích cookie hoặc gửi chuỗi tin rỗng để giả BUZZ. Các adapter thật cần kiểm thử riêng với phiên đăng nhập do người dùng chủ động cấp quyền.
