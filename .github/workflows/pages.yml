@@ -21,9 +21,14 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Stage browser assets only
+        run: |
+          mkdir -p _site
+          cp index.html style.css app.js hybrid.js rooms.js chat-config.js _site/
+          cp -R assets vendor licenses _site/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

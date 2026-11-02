@@ -3,7 +3,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const read=(k,f)=>{try{return JSON.parse(localStorage.getItem('yahoochat:'+k))??f}catch{return f}};
 const write=(k,v)=>{try{localStorage.setItem('yahoochat:'+k,JSON.stringify(v))}catch{toast('Không thể lưu: bộ nhớ trình duyệt không khả dụng.')}};
 let topZ=10,active='chat',current='nang_thuy_tinh',sound=read('sound',true),bold=false,italic=false;
-const names={buddy:'😊 Yahoo! Messenger',chat:'✉ Conversation',player:'⚡ Winamp',notes:'📝 Notepad',about:'💻 About'};
+const names={rooms:'💬 Phòng chat',buddy:'😊 Yahoo! Messenger',chat:'✉ Conversation',player:'⚡ Winamp',notes:'📝 Notepad',about:'💻 About'};
 const contacts=read('contacts',[{id:'nang_thuy_tinh',status:'Một chút nắng, một chút nhớ…'},{id:'lang_tu_8x',status:'♪ Đang nghe một bản nhạc cũ'},{id:'meo_con_9x',status:'Rảnh thì BUZZ mình nha :D'},{id:'co_be_mua_dong',status:'Offline',offline:true},{id:'chang_trai_thang_10',status:'Offline',offline:true}]);
 
 // Migrate existing Yahoo IDs unchanged so saved conversations remain intact.
